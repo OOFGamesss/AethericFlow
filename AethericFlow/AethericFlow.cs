@@ -26,6 +26,7 @@ public sealed class Plugin : IDalamudPlugin
     [PluginService] internal static IClientState ClientState { get; private set; } = null!;
     [PluginService] internal static IDataManager DataManager { get; private set; } = null!;
     [PluginService] internal static IAetheryteList AetheryteList { get; private set; } = null!;
+    [PluginService] internal static IObjectTable ObjectTable { get; private set; } = null!;
     [PluginService] internal static ITextureProvider TextureProvider { get; private set; } = null!;
     [PluginService] internal static IPluginLog Log { get; private set; } = null!;
 
@@ -45,15 +46,16 @@ public sealed class Plugin : IDalamudPlugin
             new AetheryteLocationCache(DataManager),
             new AttunementChecker(AetheryteList));
 
-        linkRegistry = new TeleportLinkRegistry(ChatGui);
+        linkRegistry = new TeleportLinkRegistry(ChatGui, configuration);
         latestTarget = new LatestTeleportTarget(ClientState);
-        latestTeleporter = new LatestLinkTeleporter(ChatGui, latestTarget);
+        latestTeleporter = new LatestLinkTeleporter(ChatGui, latestTarget, configuration);
         chatListener = new ChatMessageListener(
             ChatGui,
             configuration,
             finder,
-            new TeleportLinkBuilder(linkRegistry),
-            latestTarget);
+            new TeleportLinkBuilder(linkRegistry, configuration),
+            latestTarget,
+            new CloserOnFootCheck(ClientState, ObjectTable));
 
         configWindow = new ConfigWindow(configuration);
         windowSystem.AddWindow(configWindow);

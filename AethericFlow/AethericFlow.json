@@ -4,7 +4,7 @@
   "InternalName": "AethericFlow",
   "Punchline": "Adds a teleport link to the nearest aetheryte on every map link in chat.",
   "Description": "Display a teleport link to the nearest aetheryte for the map link from the in-game chat.\n\nゲーム内チャットのマップリンクに、最寄りのエーテライトへのテレポリンクを表示します。\n\nZeigt zu jedem Kartenlink im Spielchat einen Teleport-Link zum nächstgelegenen Ätheryten an.\n\nAffiche un lien de téléportation vers l'éthérite la plus proche pour les liens de carte du chat en jeu.",
-  "Changelog": "Introducing Aetheric Flow!\n\nAdds a teleport link to the nearest aetheryte on every map link in chat.\n\nKey Features:\n- Adds a clickable teleport link after map coordinates in chat.\n- Picks the nearest aetheryte you have attuned in that zone.\n- /aftp teleports to the most recent map link for controller players.\n- Choose which chat channels are scanned.\n- English, Japanese, German and French are all supported.",
+  "Changelog": "- Added a quicker on foot check for the player to see if it's worth teleporting or not.\n- Added the ability for the map link to be marked on the map upon teleporting via the link.\n- Added different colour options for the link text.\n- Icon update.",
   "Tags": [
     "teleport",
     "aetheryte",

@@ -1,19 +1,25 @@
+using AethericFlow.State;
 using FFXIVClientStructs.FFXIV.Client.Game.UI;
 
 namespace AethericFlow.Actions;
 
 /// <summary>
-/// Asks the game to teleport the local character to an aetheryte.
+/// Teleports the playerto the aetheryte for a map link, flagging the destination on the way.
 /// </summary>
 public static class TeleportAction
 {
-    public static unsafe void Execute(uint aetheryteId)
+    public static unsafe void Execute(TeleportTarget target, bool placeMapFlag)
     {
+        if (placeMapFlag)
+        {
+            MapFlagAction.Execute(target.MapLink);
+        }
+
         var telepo = Telepo.Instance();
 
-        if (telepo == null || !telepo->Teleport(aetheryteId, 0))
+        if (telepo == null || !telepo->Teleport(target.Aetheryte.RowId, 0))
         {
-            Plugin.Log.Warning("Could not teleport to aetheryte {AetheryteId}.", aetheryteId);
+            Plugin.Log.Warning("Could not teleport to aetheryte {AetheryteId}.", target.Aetheryte.RowId);
         }
     }
 }

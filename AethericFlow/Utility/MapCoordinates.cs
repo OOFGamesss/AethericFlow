@@ -8,7 +8,7 @@ namespace AethericFlow.Utility;
 public static class MapCoordinates
 {
     private const float MarkerSpan = 2048f;
-    private const float MapSpan = 42f;
+    private const float MapSpan = 41f;
 
     public static (float X, float Y) FromMarker(float markerX, float markerY, float sizeFactor)
     {

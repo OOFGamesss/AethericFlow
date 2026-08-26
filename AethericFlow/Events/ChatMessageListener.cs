@@ -19,19 +19,22 @@ public sealed class ChatMessageListener : IDisposable
     private readonly NearestAetheryteFinder finder;
     private readonly TeleportLinkBuilder builder;
     private readonly LatestTeleportTarget latestTarget;
+    private readonly CloserOnFootCheck onFootCheck;
 
     public ChatMessageListener(
         IChatGui chatGui,
         Configuration configuration,
         NearestAetheryteFinder finder,
         TeleportLinkBuilder builder,
-        LatestTeleportTarget latestTarget)
+        LatestTeleportTarget latestTarget,
+        CloserOnFootCheck onFootCheck)
     {
         this.chatGui = chatGui;
         this.configuration = configuration;
         this.finder = finder;
         this.builder = builder;
         this.latestTarget = latestTarget;
+        this.onFootCheck = onFootCheck;
 
         this.chatGui.ChatMessage += OnChatMessage;
     }
@@ -61,8 +64,10 @@ public sealed class ChatMessageListener : IDisposable
             return;
         }
 
-        latestTarget.Remember(aetheryte);
-        message.Message = builder.Append(message.Message, aetheryte);
+        var closerOnFoot = configuration.ShowWalkHint && onFootCheck.IsCloserOnFoot(mapLink, aetheryte);
+
+        latestTarget.Remember(aetheryte, mapLink);
+        message.Message = builder.Append(message.Message, aetheryte, mapLink, closerOnFoot);
     }
 
     public void Dispose()

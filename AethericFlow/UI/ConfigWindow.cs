@@ -4,16 +4,20 @@ using AethericFlow.Config;
 using AethericFlow.UI.Components;
 using AethericFlow.Utility;
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Colors;
+using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Interface.Windowing;
 
 namespace AethericFlow.UI;
 
 /// <summary>
-/// The plugin window, holding the channel settings and the support page.
+/// The plugin window, holding the settings sections and the support page.
 /// </summary>
 public sealed class ConfigWindow : Window, IDisposable
 {
+    private const float SectionSpacing = 8f;
+
     private readonly Configuration configuration;
 
     public ConfigWindow(Configuration configuration) : base("Aetheric Flow###AethericFlowConfig")
@@ -44,13 +48,63 @@ public sealed class ConfigWindow : Window, IDisposable
             return;
         }
 
-        ImGui.TextWrapped(LocalisedText.SettingsIntro.Text);
-        ImGui.Separator();
+        var changed = DrawGeneralSection();
+        changed |= DrawChannelSection();
+        changed |= DrawAppearanceSection();
 
-        if (ChatChannelSelector.Draw(configuration.EnabledChannels))
+        if (changed)
         {
             configuration.Save();
         }
+    }
+
+    private bool DrawGeneralSection()
+    {
+        DrawSectionHeading(LocalisedText.SettingsGeneral);
+
+        var changed = DrawToggle(LocalisedText.WalkHintToggle, configuration.ShowWalkHint, out var showWalkHint);
+        configuration.ShowWalkHint = showWalkHint;
+
+        changed |= DrawToggle(LocalisedText.MapFlagToggle, configuration.PlaceMapFlag, out var placeMapFlag);
+        configuration.PlaceMapFlag = placeMapFlag;
+
+        ImGuiHelpers.ScaledDummy(SectionSpacing);
+        return changed;
+    }
+
+    private bool DrawChannelSection()
+    {
+        DrawSectionHeading(LocalisedText.SettingsChannels);
+        ImGui.TextWrapped(LocalisedText.SettingsIntro.Text);
+
+        var changed = ChatChannelSelector.Draw(configuration.EnabledChannels);
+
+        ImGuiHelpers.ScaledDummy(SectionSpacing);
+        return changed;
+    }
+
+    private bool DrawAppearanceSection()
+    {
+        DrawSectionHeading(LocalisedText.SettingsAppearance);
+        ImGui.TextWrapped(LocalisedText.LinkColourLabel.Text);
+
+        return LinkColourSelector.Draw(configuration);
+    }
+
+    private static void DrawSectionHeading(LocalisedString heading)
+    {
+        using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
+        {
+            ImGui.TextUnformatted(heading.Text);
+        }
+
+        ImGui.Separator();
+    }
+
+    private static bool DrawToggle(LocalisedString label, bool current, out bool updated)
+    {
+        updated = current;
+        return ImGui.Checkbox(label.Text, ref updated);
     }
 
     private void DrawSupportTab()

@@ -8,7 +8,7 @@ using Dalamud.Game.Text;
 namespace AethericFlow.Config;
 
 /// <summary>
-/// Persisted plugin settings, currently just the set of chat channels that are scanned for map links.
+/// Persisted plugin settings, covering the chat channels, quicker on foot check and map flag placement and text link colours.
 /// </summary>
 [Serializable]
 public class Configuration : IPluginConfiguration
@@ -17,6 +17,12 @@ public class Configuration : IPluginConfiguration
 
     public HashSet<XivChatType> EnabledChannels { get; set; } =
         ChatChannelCatalogue.All.Select(channel => channel.Type).ToHashSet();
+
+    public ushort LinkColour { get; set; } = 500;
+
+    public bool ShowWalkHint { get; set; } = true;
+
+    public bool PlaceMapFlag { get; set; } = true;
 
     public void Save()
     {

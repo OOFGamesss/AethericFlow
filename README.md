@@ -15,6 +15,9 @@ aetheryte in that zone, and adds a clickable teleport link right after the coord
 - **Stays out of the way** when a zone has no aetheryte you can reach, leaving the message exactly as it was.
 - **Teleports instantly** on click with no other plugin required.
 - **Works without a mouse** thanks to `/aftp`, which teleports to the most recent map link so controller players can bind it to a macro.
+- **Drops a map flag** on the destination as you teleport, so it is on your map, minimap and compass the moment you land.
+- **Tells you when walking is quicker**, adding a quiet grey `Quicker on foot` note when you already stand closer to the link than the aetheryte does.
+- **Takes the colour you want**, picked from the game's own chat palette in the settings window.
 - **Scans only the channels you choose**, from party and say through to linkshells and tells.
 
 ## In Action

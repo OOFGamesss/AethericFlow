@@ -11,6 +11,12 @@ public static class LocalisedText
         "Teleport zu {0}",
         "Téléportation vers {0}");
 
+    public static LocalisedString WalkHint { get; } = new(
+        "Quicker on foot",
+        "徒歩の方が速いです",
+        "Zu Fuß schneller",
+        "Plus rapide à pied");
+
     public static LocalisedString NoMapLinkSeen { get; } = new(
         "No map link with a reachable aetheryte has been seen yet.",
         "テレポ可能なエーテライトを含むマップリンクはまだありません。",
@@ -45,6 +51,42 @@ public static class LocalisedText
         "Wähle aus, welche Chat-Kanäle nach Kartenlinks durchsucht werden.",
         "Choisissez les canaux de chat à analyser pour y trouver des liens de carte.");
 
+    public static LocalisedString SettingsGeneral { get; } = new(
+        "General",
+        "全般",
+        "Allgemein",
+        "Général");
+
+    public static LocalisedString SettingsChannels { get; } = new(
+        "Channels",
+        "チャンネル",
+        "Kanäle",
+        "Canaux");
+
+    public static LocalisedString SettingsAppearance { get; } = new(
+        "Appearance",
+        "外観",
+        "Darstellung",
+        "Apparence");
+
+    public static LocalisedString LinkColourLabel { get; } = new(
+        "Teleport link colour",
+        "テレポリンクの色",
+        "Farbe des Teleport-Links",
+        "Couleur du lien de téléportation");
+
+    public static LocalisedString WalkHintToggle { get; } = new(
+        "Tell me when walking would be quicker",
+        "歩いた方が速いときに知らせる",
+        "Hinweis anzeigen, wenn Laufen schneller wäre",
+        "M'indiquer quand la marche serait plus rapide");
+
+    public static LocalisedString MapFlagToggle { get; } = new(
+        "Place a map flag when I teleport",
+        "テレポ時にマップにフラッグを立てる",
+        "Beim Teleportieren eine Kartenmarkierung setzen",
+        "Placer un drapeau sur la carte lors de la téléportation");
+
     public static LocalisedString DiscordButton { get; } = new(
         "Join the OOF Games Discord",
         "OOF Games の Discord に参加",
@@ -58,10 +100,10 @@ public static class LocalisedText
         "Comment l'utiliser ?");
 
     public static LocalisedString FaqUsageAnswer { get; } = new(
-        "Any map link posted on a channel you have enabled gains a teleport link beside it. Click that link to teleport, or use /aftp to teleport to the most recent one without touching your mouse.",
-        "有効にしたチャンネルに投稿されたマップリンクには、テレポリンクが追加されます。そのリンクをクリックするか、マウスを使わずに /aftp で最新のリンク先へテレポできます。",
-        "Jeder Kartenlink in einem aktivierten Kanal erhält daneben einen Teleport-Link. Klicke darauf, um zu teleportieren, oder nutze /aftp, um ohne Maus zum neuesten Link zu reisen.",
-        "Tout lien de carte publié sur un canal activé reçoit un lien de téléportation. Cliquez dessus pour vous téléporter, ou utilisez /aftp pour rejoindre le plus récent sans toucher à la souris.");
+        "Map links posted on the channels you have enabled gain a teleport link beside them. Click it to travel, or use /aftp to reach the most recent one without touching your mouse. Teleporting drops a map flag on the destination, and the link tells you when you are closer to it than the aetheryte is.",
+        "有効にしたチャンネルに投稿されたマップリンクには、テレポリンクが追加されます。クリックしてテレポするか、マウスを使わずに /aftp で最新のリンク先へ移動できます。テレポすると目的地にマップフラッグが立ち、エーテライトよりも自分の方が近い場合はリンクがそれを知らせます。",
+        "Kartenlinks in den von dir aktivierten Kanälen erhalten daneben einen Teleport-Link. Klicke darauf, um zu reisen, oder nutze /aftp, um ohne Maus zum neuesten Link zu gelangen. Beim Teleportieren wird eine Kartenmarkierung am Ziel gesetzt, und der Link sagt dir, wenn du näher dran bist als der Ätheryt.",
+        "Les liens de carte publiés sur les canaux que vous avez activés reçoivent un lien de téléportation. Cliquez dessus pour voyager, ou utilisez /aftp pour rejoindre le plus récent sans toucher à la souris. La téléportation place un drapeau sur la destination, et le lien vous prévient lorsque vous en êtes plus proche que l'éthérite.");
 
     public static LocalisedString FaqMissingQuestion { get; } = new(
         "Why did a map link not get a teleport link?",
