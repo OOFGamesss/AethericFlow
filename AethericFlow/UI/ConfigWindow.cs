@@ -17,6 +17,7 @@ namespace AethericFlow.UI;
 public sealed class ConfigWindow : Window, IDisposable
 {
     private const float SectionSpacing = 8f;
+    private const float TooltipWrapWidth = 20f;
 
     private readonly Configuration configuration;
 
@@ -72,6 +73,20 @@ public sealed class ConfigWindow : Window, IDisposable
         return changed;
     }
 
+    private bool DrawClockIconToggle()
+    {
+        using var disabled = ImRaii.Disabled(!configuration.ShowWalkHint);
+
+        var changed = DrawToggle(
+            LocalisedText.ClockIconOnlyToggle,
+            LocalisedText.ClockIconOnlyTooltip,
+            configuration.ShowClockIconOnly,
+            out var clockIconOnly);
+
+        configuration.ShowClockIconOnly = clockIconOnly;
+        return changed;
+    }
+
     private bool DrawChannelSection()
     {
         DrawSectionHeading(LocalisedText.SettingsChannels);
@@ -86,9 +101,20 @@ public sealed class ConfigWindow : Window, IDisposable
     private bool DrawAppearanceSection()
     {
         DrawSectionHeading(LocalisedText.SettingsAppearance);
+
+        var changed = DrawToggle(
+            LocalisedText.TeleportIconOnlyToggle,
+            LocalisedText.TeleportIconOnlyTooltip,
+            configuration.ShowTeleportIconOnly,
+            out var teleportIconOnly);
+
+        configuration.ShowTeleportIconOnly = teleportIconOnly;
+
+        changed |= DrawClockIconToggle();
+
         ImGui.TextWrapped(LocalisedText.LinkColourLabel.Text);
 
-        return LinkColourSelector.Draw(configuration);
+        return changed | LinkColourSelector.Draw(configuration);
     }
 
     private static void DrawSectionHeading(LocalisedString heading)
@@ -105,6 +131,27 @@ public sealed class ConfigWindow : Window, IDisposable
     {
         updated = current;
         return ImGui.Checkbox(label.Text, ref updated);
+    }
+
+    private static bool DrawToggle(LocalisedString label, LocalisedString tooltip, bool current, out bool updated)
+    {
+        var changed = DrawToggle(label, current, out updated);
+        DrawTooltip(tooltip);
+
+        return changed;
+    }
+
+    private static void DrawTooltip(LocalisedString tooltip)
+    {
+        if (!ImGui.IsItemHovered())
+        {
+            return;
+        }
+
+        using var wrapper = ImRaii.Tooltip();
+        using var wrapping = ImRaii.TextWrapPos(ImGui.GetFontSize() * TooltipWrapWidth);
+
+        ImGui.TextUnformatted(tooltip.Text);
     }
 
     private void DrawSupportTab()

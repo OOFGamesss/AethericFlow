@@ -22,27 +22,42 @@ public sealed class TeleportLinkBuilder(TeleportLinkRegistry registry, Configura
         return closerOnFoot ? message.Append(BuildHintPayloads()) : message;
     }
 
-    private static IEnumerable<Payload> BuildHintPayloads()
+    private IEnumerable<Payload> BuildHintPayloads()
     {
-        return
+        List<Payload> payloads =
         [
             new UIForegroundPayload(HintColour),
-            new TextPayload($" {(char)SeIconChar.Clock} {LocalisedText.WalkHint.Text}"),
-            UIForegroundPayload.UIForegroundOff,
+            new TextPayload($" {(char)SeIconChar.Clock}"),
         ];
+
+        if (!configuration.ShowClockIconOnly)
+        {
+            payloads.Add(new TextPayload($" {LocalisedText.WalkHint.Text}"));
+        }
+
+        payloads.Add(UIForegroundPayload.UIForegroundOff);
+
+        return payloads;
     }
 
     private IEnumerable<Payload> BuildPayloads(AetheryteLocation aetheryte, MapLinkPayload mapLink)
     {
-        return
+        List<Payload> payloads =
         [
             new TextPayload(" "),
             new UIForegroundPayload(configuration.LinkColour),
             registry.PayloadFor(aetheryte, mapLink),
             new IconPayload(BitmapFontIcon.Aetheryte),
-            new TextPayload(LocalisedText.TeleportLink.Format(aetheryte.Name)),
-            RawPayload.LinkTerminator,
-            UIForegroundPayload.UIForegroundOff,
         ];
+
+        if (!configuration.ShowTeleportIconOnly)
+        {
+            payloads.Add(new TextPayload(LocalisedText.TeleportLink.Format(aetheryte.Name)));
+        }
+
+        payloads.Add(RawPayload.LinkTerminator);
+        payloads.Add(UIForegroundPayload.UIForegroundOff);
+
+        return payloads;
     }
 }

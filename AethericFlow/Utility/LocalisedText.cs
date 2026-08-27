@@ -87,6 +87,30 @@ public static class LocalisedText
         "Beim Teleportieren eine Kartenmarkierung setzen",
         "Placer un drapeau sur la carte lors de la téléportation");
 
+    public static LocalisedString ClockIconOnlyToggle { get; } = new(
+        "Show clock icon only",
+        "時計アイコンのみを表示する",
+        "Nur das Uhr-Symbol anzeigen",
+        "Afficher uniquement l'icône d'horloge");
+
+    public static LocalisedString ClockIconOnlyTooltip { get; } = new(
+        "Only the clock icon is shown when walking would be quicker without showing the text.",
+        "歩いた方が速いときに、テキストを表示せず時計アイコンのみを表示します。",
+        "Wenn Laufen schneller wäre, wird nur das Uhr-Symbol ohne den Text angezeigt.",
+        "Lorsque la marche est plus rapide, seule l'icône d'horloge est affichée, sans afficher le texte.");
+
+    public static LocalisedString TeleportIconOnlyToggle { get; } = new(
+        "Show teleport icon only",
+        "テレポアイコンのみを表示する",
+        "Nur das Teleport-Symbol anzeigen",
+        "Afficher uniquement l'icône de téléportation");
+
+    public static LocalisedString TeleportIconOnlyTooltip { get; } = new(
+        "Only the aetheryte icon is shown as the clickable teleport link without showing the text.",
+        "テキストを表示せず、エーテライトのアイコンのみをクリック可能なテレポリンクとして表示します。",
+        "Nur das Ätheryten-Symbol wird als anklickbarer Teleport-Link angezeigt, ohne den Text anzuzeigen.",
+        "Seule l'icône d'éthérite est affichée comme lien de téléportation cliquable, sans afficher le texte.");
+
     public static LocalisedString DiscordButton { get; } = new(
         "Join the OOF Games Discord",
         "OOF Games の Discord に参加",

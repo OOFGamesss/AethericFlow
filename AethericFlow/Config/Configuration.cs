@@ -8,7 +8,8 @@ using Dalamud.Game.Text;
 namespace AethericFlow.Config;
 
 /// <summary>
-/// Persisted plugin settings, covering the chat channels, quicker on foot check and map flag placement and text link colours.
+/// Persisted plugin settings, covering the chat channels, quicker on foot check, map flag placement,
+/// icon only display and text link colours.
 /// </summary>
 [Serializable]
 public class Configuration : IPluginConfiguration
@@ -23,6 +24,10 @@ public class Configuration : IPluginConfiguration
     public bool ShowWalkHint { get; set; } = true;
 
     public bool PlaceMapFlag { get; set; } = true;
+
+    public bool ShowTeleportIconOnly { get; set; } = false;
+
+    public bool ShowClockIconOnly { get; set; } = false;
 
     public void Save()
     {
