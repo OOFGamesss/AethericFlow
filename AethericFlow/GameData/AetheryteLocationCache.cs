@@ -14,6 +14,12 @@ public readonly record struct AetheryteLocation(uint RowId, string Name, float X
 
 public sealed class AetheryteLocationCache
 {
+    public const uint DravanianHinterlands = 399;
+
+    private const uint Idyllshire = 478;
+    private const uint DravanianForelands = 398;
+    private const uint CoerthasWesternHighlands = 397;
+
     private readonly Dictionary<uint, List<AetheryteLocation>> locationsByTerritory;
 
     public AetheryteLocationCache(IDataManager dataManager)
@@ -55,6 +61,25 @@ public sealed class AetheryteLocationCache
         }
 
         AethernetHubFallback.Apply(sheet, locations, hubsByGroup);
+
+        if (!locations.ContainsKey(DravanianHinterlands))
+        {
+            var neighbours = new List<AetheryteLocation>();
+
+            foreach (var territory in new uint[] { Idyllshire, DravanianForelands, CoerthasWesternHighlands })
+            {
+                if (locations.ContainsKey(territory))
+                {
+                    neighbours.AddRange(locations[territory]);
+                }
+            }
+
+            if (neighbours.Count > 0)
+            {
+                locations[DravanianHinterlands] = neighbours;
+            }
+        }
+
         return locations;
     }
 

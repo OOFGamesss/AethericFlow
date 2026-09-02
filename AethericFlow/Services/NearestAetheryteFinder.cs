@@ -22,6 +22,11 @@ public sealed class NearestAetheryteFinder(AetheryteLocationCache locations, Att
             return null;
         }
 
+        if (mapLink.TerritoryType.RowId == AetheryteLocationCache.DravanianHinterlands)
+        {
+            return candidates[0];
+        }
+
         return candidates.MinBy(location =>
             MapCoordinates.DistanceBetween(mapLink.XCoord, mapLink.YCoord, location.X, location.Y));
     }
